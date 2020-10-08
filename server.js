@@ -15,7 +15,8 @@ const DB_PASSWORD = process.env.DB_PASSWORD
 mongoose.connect(`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.yttoy.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
 { 
     useNewUrlParser: true, 
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 }, 
 () => {console.log(`connected to database.\nState: ${mongoose.connection.readyState}`)})
 
