@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 const apiRoute = require('./routes/Api')
 
@@ -16,7 +17,7 @@ mongoose.connect(`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.yttoy.mon
     useNewUrlParser: true, 
     useUnifiedTopology: true
 }, 
-() => {console.log('connected to database')})
+() => {console.log(`connected to database.\nState: ${mongoose.connection.readyState}`)})
 
 
 //APP
@@ -24,7 +25,7 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 //MIDDLEWARE
-
+app.use(bodyParser.json())
 
 // ROUTES
 app.get('/', (req, res) => {
