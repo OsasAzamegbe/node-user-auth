@@ -1,0 +1,14 @@
+{
+  "name": "node-user-auth",
+  "version": "1.0.0",
+  "description": "creating user auth with JWT",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Osas Azamegbe",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
