@@ -5,15 +5,15 @@ const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
-        index: {
-            unique: true
-        },
         max: 200
     },
     email: {
         type: String,
         required: true,
-        max: 200
+        max: 200,
+        index: {
+            unique: true
+        },
     },
     password: {
         type: String,
