@@ -12,14 +12,21 @@ router.get('/', (req, res) => {
 // REGISTER NEW USER
 router.post('/register', async (req, res) => {
 
-    const {error} = registerValidation(req.body)
+    const body = req.body
 
+    //validation
+    const {error} = registerValidation(body)
     if (error) {
         return res.status(400).json({"validation error" : error.details[0].message})
     }
 
+    //check if email is unique
+    const emailExists = User.findOne({email: body.email})
+    if(emailExists){
+        return res.status(400).json({"error": "An account with this email address already exists."})
+    }
+
     try{
-        const body = req.body
         const user = new User({
             username: body.username,
             email: body.email,
