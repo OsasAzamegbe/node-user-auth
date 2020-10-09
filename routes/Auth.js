@@ -1,7 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
-const {registerValidation} = require('../validation/Validation')
+const {registerValidation, loginValidation} = require('../validation/Validation')
 
 
 
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     res.send("In /auth route")
 })
 
-// REGISTER NEW USER
+// REGISTER ROUTE
 router.post('/register', async (req, res) => {
 
     const body = req.body
@@ -49,6 +49,22 @@ router.post('/register', async (req, res) => {
         res.status(500).json({error})
         throw error
     }
+})
+
+
+
+//LOGIN ROUTE
+router.post('/login', async (req, res) => {
+    const body = req.body
+
+    //Validate Login data
+    const {error} = loginValidation(body)
+    if (error) {
+        return res.status(400).json({"validation error" : error.details[0].message})
+    }
+
+    const user = await User.findOne({email: body.email})
+
 })
 
 
