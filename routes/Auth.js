@@ -77,7 +77,14 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({error: "Email or Password is incorrect"})
     }
 
-    return res.status(200).json({message: "Logged in succesfully"})
+    //create jwt
+    const token = jwt.sign({_id: user._id}, process.env.JWT_TOKEN_SECRET)
+
+    res.header("Authorization", token)
+    return res.status(200).json({
+        message: "Logged in succesfully",
+        token
+    })
 
 })
 
